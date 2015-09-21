@@ -112,7 +112,7 @@ class RCTRealtimeMessagingIOS extends React.Component {
 		- onEnablePresence
 	*/
 
-	RTCustomPushNotificationListener(callBack: Function){
+	RTPushNotificationListener(callBack: Function){
 		require('RCTDeviceEventEmitter').addListener(
 			  'onPushNotification',
 			  callBack
