@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>682DD9C9-3D49-4912-8DFA-436162155BC6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RCTRealtimeMessaging</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8D36A2E25D1F69289FF5D730990237D3FD9BBC1E</key>
+		<string>https://github.com/JoaoCaixinha/RCTRealtimeMessaging.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RCTRealtimeMessaging.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8D36A2E25D1F69289FF5D730990237D3FD9BBC1E</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/JoaoCaixinha/RCTRealtimeMessaging.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8D36A2E25D1F69289FF5D730990237D3FD9BBC1E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8D36A2E25D1F69289FF5D730990237D3FD9BBC1E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RCTRealtimeMessaging</string>
+		</dict>
+	</array>
+</dict>
+</plist>
