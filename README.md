@@ -95,36 +95,23 @@ RTRemoveEventListener removes an event registration. After this method when the 
 	- On success -> `{"result": result}` 
 	- On error -> `{"error": error}` 
 	
-###Push notification handling ( available from 1.0.6 )
+###Push notification handling
 
 ####Configure your project for push notifications handling
 
 To configure your react-native project to receive push notifications you must follow [this guide](http://messaging-public.realtime.co/documentation/starting-guide/mobilePushAPNS.html) for the iOS platform.
 After this process you must drag AppDelegate+RealtimeRCTPushNotifications(.m, .h) category from RCTRealtimeMessaging plugin folder to your project, where AppDelegate class is, and you are ready to go.
 
-####Handling automatic push notifications through javascript
+####Handling push notifications through javascript
 
-To receive push notifications in a RealtimeMessaging channel you must use the SubscribeWithNotifications method. The onMessage event listener will be the only entry point for automatic push notifications(sent using a Realtime client send method), so when the application starts you must connect and subscribe the channels for handling that type of notifications.
+For handling push notifications ( sent using the Realtime mobile push notifications REST API) we added the following event listener:
 
-***Example:***
-
-	RCTRealtimeMessaging.RTSubscribeWithNotifications(this.state.channel, true);
-	RCTRealtimeMessaging.RTEventListener("onMessage",this._onMessage),
-	_onMessage: function(messageEvent)
-	{ 
-		this._log("Received message or automatic notification: ["+messageEvent.message+"] on channel ["+ messageEvent.channel+"]");  
-	},
-
-####Handling custom push notifications through javascript
-
-For handling custom push notifications ( sent using the Realtime mobile push notifications REST API) we added the following event listener:
-
-* RTCustomPushNotificationListener(callBack: Function)
+* RTPushNotificationListener(callBack: Function)
 
 ***Example:***
 
 	componentDidMount: function(){
-  		RCTRealtimeMessaging.RTCustomPushNotificationListener(this._onNotification);
+  		RCTRealtimeMessaging.RTPushNotificationListener(this._onNotification);
 	},
 	
 	_onNotification: function(data)
