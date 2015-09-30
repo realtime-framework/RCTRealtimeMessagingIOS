@@ -21,7 +21,7 @@ class RCTRealtimeMessagingIOS extends React.Component {
 	
 	constructor(props) {
     super(props);
-		this.id = instances++;
+		this.id = ""+instances++;
 	}
 
 	RTConnect(config){
