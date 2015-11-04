@@ -789,8 +789,10 @@ static NSString *ortcDEVICE_TOKEN;
 
 - (void) startHeartbeatLoop{
     if(heartbeatTimer == nil && heartbeatActive)
-        heartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:heartbeatTime target:self selector:@selector(heartbeatLoop) userInfo:nil repeats:YES];
-}
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            heartbeatTimer = [NSTimer scheduledTimerWithTimeInterval:heartbeatTime target:self selector:@selector(heartbeatLoop) userInfo:nil repeats:YES];
+        });
+    }
 - (void) stopHeartbeatLoop{
     if(heartbeatTimer != nil)
         [heartbeatTimer invalidate];
@@ -1456,8 +1458,9 @@ static NSString *ortcDEVICE_TOKEN;
               
             }
             else {
-                [NSTimer scheduledTimerWithTimeInterval:connectionTimeout target:self selector:@selector(processConnect:) userInfo:nil repeats:NO];
-            
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [NSTimer scheduledTimerWithTimeInterval:connectionTimeout target:self selector:@selector(processConnect:) userInfo:nil repeats:NO];
+                });
             }
             
         }];
@@ -1616,8 +1619,9 @@ static NSString *ortcDEVICE_TOKEN;
             [self doConnect:self];
         }
         else {
-
-            [NSTimer scheduledTimerWithTimeInterval:connectionTimeout target:self selector:@selector(doConnect:) userInfo:nil repeats:NO];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [NSTimer scheduledTimerWithTimeInterval:connectionTimeout target:self selector:@selector(doConnect:) userInfo:nil repeats:NO];
+            });
         }
     }
 }
@@ -1637,7 +1641,9 @@ static NSString *ortcDEVICE_TOKEN;
             [self doConnect:self];
         }
         else {
-            [NSTimer scheduledTimerWithTimeInterval:connectionTimeout target:self selector:@selector(doConnect:) userInfo:nil repeats:NO];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [NSTimer scheduledTimerWithTimeInterval:connectionTimeout target:self selector:@selector(doConnect:) userInfo:nil repeats:NO];
+            });
         }
     }
 }
