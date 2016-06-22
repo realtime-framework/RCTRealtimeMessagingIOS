@@ -1,6 +1,6 @@
 {
   "name": "react-native-realtimemessaging-ios",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "The Realtime Framework Cloud Messaging Pub/Sub client for React-Native",
   "main": "RCTRealtimeMessagingIOS.js",
   "scripts": {
