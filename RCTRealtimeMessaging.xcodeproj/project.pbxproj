@@ -11,7 +11,6 @@
 		57E5A0A91AD2D06E00B19F3B /* RCTRealtimeMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5A0A81AD2D06E00B19F3B /* RCTRealtimeMessaging.m */; };
 		57E5A0C91AD2D0E800B19F3B /* Balancer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5A0C41AD2D0E800B19F3B /* Balancer.m */; };
 		57E5A0CA1AD2D0E800B19F3B /* OrtcClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5A0C61AD2D0E800B19F3B /* OrtcClient.m */; };
-		57E5A0D11AD2D11B00B19F3B /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E5A0D01AD2D11B00B19F3B /* libicucore.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,7 +37,6 @@
 		57E5A0C61AD2D0E800B19F3B /* OrtcClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrtcClient.m; sourceTree = "<group>"; };
 		57E5A0CD1AD2D11000B19F3B /* base64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		57E5A0CE1AD2D11000B19F3B /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
-		57E5A0D01AD2D11B00B19F3B /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57E5A0D11AD2D11B00B19F3B /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,7 +53,6 @@
 		57E5A09A1AD2D06E00B19F3B = {
 			isa = PBXGroup;
 			children = (
-				57E5A0D01AD2D11B00B19F3B /* libicucore.dylib */,
 				57E5A0CC1AD2D11000B19F3B /* SocketRocket */,
 				57E5A0A51AD2D06E00B19F3B /* RCTRealtimeMessaging */,
 				57E5A0A41AD2D06E00B19F3B /* Products */,
