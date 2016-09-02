@@ -12,7 +12,7 @@
 #define OrtcClient_OrtcClient_h
 
 #import <Foundation/Foundation.h>
-#import "RCTSRWebSocket.h"
+
 
 #define heartbeatDefaultTime 15 // Heartbeat default interval time
 #define heartbeatDefaultFails 3 // Heartbeat default max fails
@@ -204,7 +204,7 @@
 
 
 
-@interface OrtcClient : NSObject <RCTSRWebSocketDelegate>
+@interface OrtcClient : NSObject 
 
 ///---------------------------------------------------------------------------------------
 /// @name Properties
@@ -243,6 +243,7 @@
  * @param authenticationToken The authentication token.
  */
 - (void)connect:(NSString*) applicationKey authenticationToken:(NSString*) authenticationToken;
+
 /**
  * Sends a message to a channel.
  *
@@ -250,6 +251,7 @@
  * @param message The message to send.
  */
 - (void)send:(NSString*) channel message:(NSString*) message;
+
 /**
  * Subscribes to a channel to receive messages sent to it.
  *
@@ -258,6 +260,16 @@
  * @param onMessage The callback called when a message arrives at the channel.
  */
 - (void)subscribe:(NSString*) channel subscribeOnReconnected:(BOOL) aSubscribeOnReconnected onMessage:(void (^)(OrtcClient* ortc, NSString* channel, NSString* message)) onMessage;
+
+/**
+ * Subscribes to a channel, with a filter, to receive messages sent to it that validate the given filter.
+ *
+ * @param channel The channel name. Only channels with alphanumeric name and the following characters: "_" "-" ":" are allowed.
+ * @param subscribeOnReconnected Indicates whether the client should subscribe to the channel when reconnected (if it was previously subscribed when connected).
+ * @param filter The subscription filter
+ * @param onMessageWithFilter The callback called when a message arrives at the channel.
+ */
+- (void)subscribeWithFilter:(NSString*) channel subscribeOnReconnected:(BOOL) aSubscribeOnReconnected filter:(NSString*) aFilter onMessageWithFilter:(void (^)(OrtcClient* ortc, NSString* channel, BOOL filtered, NSString* message)) onMessageWithFilter;
 
 /**
  * Subscribes to a channel, with Push Notifications Service, to receive messages sent to it.

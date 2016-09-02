@@ -6,7 +6,7 @@
 //
 //
 
-#import "Balancer.h"
+#import "RCTBalancer.h"
 
 NSString* const BALANCER_RESPONSE_PATTERN = @"^var SOCKET_SERVER = \\\"(.*?)\\\";$";
 
