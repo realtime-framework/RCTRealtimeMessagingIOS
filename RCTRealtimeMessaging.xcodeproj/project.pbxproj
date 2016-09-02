@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		57E5A0A71AD2D06E00B19F3B /* RCTRealtimeMessaging.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 57E5A0A61AD2D06E00B19F3B /* RCTRealtimeMessaging.h */; };
 		57E5A0A91AD2D06E00B19F3B /* RCTRealtimeMessaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5A0A81AD2D06E00B19F3B /* RCTRealtimeMessaging.m */; };
-		57E5A0C91AD2D0E800B19F3B /* Balancer.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5A0C41AD2D0E800B19F3B /* Balancer.m */; };
-		57E5A0CA1AD2D0E800B19F3B /* OrtcClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5A0C61AD2D0E800B19F3B /* OrtcClient.m */; };
+		E0E11BBA1D79AC6500EEEAD8 /* RCTBalancer.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E11BB71D79AC6500EEEAD8 /* RCTBalancer.m */; };
+		E0E11BBB1D79AC6500EEEAD8 /* RCTOrtcClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E0E11BB91D79AC6500EEEAD8 /* RCTOrtcClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,12 +31,12 @@
 		57E5A0A31AD2D06E00B19F3B /* libRCTRealtimeMessaging.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRCTRealtimeMessaging.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E5A0A61AD2D06E00B19F3B /* RCTRealtimeMessaging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTRealtimeMessaging.h; sourceTree = "<group>"; };
 		57E5A0A81AD2D06E00B19F3B /* RCTRealtimeMessaging.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTRealtimeMessaging.m; sourceTree = "<group>"; };
-		57E5A0C31AD2D0E800B19F3B /* Balancer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Balancer.h; sourceTree = "<group>"; };
-		57E5A0C41AD2D0E800B19F3B /* Balancer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Balancer.m; sourceTree = "<group>"; };
-		57E5A0C51AD2D0E800B19F3B /* OrtcClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrtcClient.h; sourceTree = "<group>"; };
-		57E5A0C61AD2D0E800B19F3B /* OrtcClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrtcClient.m; sourceTree = "<group>"; };
 		57E5A0CD1AD2D11000B19F3B /* base64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
 		57E5A0CE1AD2D11000B19F3B /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+SRB64Additions.h"; sourceTree = "<group>"; };
+		E0E11BB61D79AC6500EEEAD8 /* RCTBalancer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTBalancer.h; sourceTree = "<group>"; };
+		E0E11BB71D79AC6500EEEAD8 /* RCTBalancer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTBalancer.m; sourceTree = "<group>"; };
+		E0E11BB81D79AC6500EEEAD8 /* RCTOrtcClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTOrtcClient.h; sourceTree = "<group>"; };
+		E0E11BB91D79AC6500EEEAD8 /* RCTOrtcClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTOrtcClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,10 +72,10 @@
 			children = (
 				57E5A0A61AD2D06E00B19F3B /* RCTRealtimeMessaging.h */,
 				57E5A0A81AD2D06E00B19F3B /* RCTRealtimeMessaging.m */,
-				57E5A0C31AD2D0E800B19F3B /* Balancer.h */,
-				57E5A0C41AD2D0E800B19F3B /* Balancer.m */,
-				57E5A0C51AD2D0E800B19F3B /* OrtcClient.h */,
-				57E5A0C61AD2D0E800B19F3B /* OrtcClient.m */,
+				E0E11BB61D79AC6500EEEAD8 /* RCTBalancer.h */,
+				E0E11BB71D79AC6500EEEAD8 /* RCTBalancer.m */,
+				E0E11BB81D79AC6500EEEAD8 /* RCTOrtcClient.h */,
+				E0E11BB91D79AC6500EEEAD8 /* RCTOrtcClient.m */,
 			);
 			path = RCTRealtimeMessaging;
 			sourceTree = "<group>";
@@ -147,8 +147,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				57E5A0A91AD2D06E00B19F3B /* RCTRealtimeMessaging.m in Sources */,
-				57E5A0C91AD2D0E800B19F3B /* Balancer.m in Sources */,
-				57E5A0CA1AD2D0E800B19F3B /* OrtcClient.m in Sources */,
+				E0E11BBA1D79AC6500EEEAD8 /* RCTBalancer.m in Sources */,
+				E0E11BBB1D79AC6500EEEAD8 /* RCTOrtcClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

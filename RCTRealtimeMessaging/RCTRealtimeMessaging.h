@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "OrtcClient.h"
+#import "RCTOrtcClient.h"
 #import "RCTBridgeModule.h"
 #import "RCTBridge.h"
 #import "RCTEventDispatcher.h"

@@ -156,6 +156,21 @@ RCT_EXPORT_METHOD(subscribe:(NSString*)channel subscribeOnReconnected:(BOOL)aSub
      }];
 }
 
+RCT_EXPORT_METHOD(subscribeWithFilter:(NSString*)channel subscribeOnReconnected:(BOOL)aSubscribeOnReconnected filter:(NSString*)aFilter usingClient:(NSString*)clientID)
+{
+    OrtcClient *ortcClient = [_queue objectForKey:clientID];
+    [ortcClient subscribeWithFilter:channel subscribeOnReconnected:aSubscribeOnReconnected filter:aFilter onMessageWithFilter:^(OrtcClient *ortc, NSString *channel, BOOL filtered, NSString *message) {
+        
+         
+         NSString *clientID = [[_queue allKeysForObject:ortc] objectAtIndex:0];
+         [self.bridge.eventDispatcher sendDeviceEventWithName:[NSString stringWithFormat:@"%@-onMessageWithFilter", clientID]
+                                                         body:@{@"message": message,
+                                                                @"channel": channel,
+                                                                @"filtered":@(filtered)
+                                                                }];
+     }];
+}
+
 RCT_EXPORT_METHOD(subscribeWithNotifications:(NSString*) channel subscribeOnReconnected:(BOOL) aSubscribeOnReconnected usingClient:(NSString*)clientID)
 {
     OrtcClient *ortcClient = [_queue objectForKey:clientID];
