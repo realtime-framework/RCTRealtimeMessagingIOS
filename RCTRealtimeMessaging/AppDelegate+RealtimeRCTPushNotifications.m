@@ -8,7 +8,7 @@
 
 #import "AppDelegate+RealtimeRCTPushNotifications.h"
 #import <objc/runtime.h>
-#define NOTIFICATIONS_KEY @"Local_Storage_Notifications"
+#define NOTIFICATIONS_KEY @"Local_Storage_Notifications_dictionary"
 
 #pragma GCC diagnostic ignored "-Wundeclared-selector"
 @implementation AppDelegate (RealtimeRCTPushNotifications)
@@ -65,13 +65,31 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
   if ([userInfo objectForKey:@"C"] && [userInfo objectForKey:@"M"] && [userInfo objectForKey:@"A"]) {
     
     if ([[[userInfo objectForKey:@"aps" ] objectForKey:@"alert"] isKindOfClass:[NSString class]]) {
-      NSString *ortcMessage = [NSString stringWithFormat:@"a[\"{\\\"ch\\\":\\\"%@\\\",\\\"m\\\":\\\"%@\\\"}\"]", [userInfo objectForKey:@"C"], [userInfo objectForKey:@"M"]];
+      NSString *ortcMessage;
+      
+      NSRegularExpression* valRegex = [NSRegularExpression regularExpressionWithPattern:@"^#(.*?):" options:0 error:NULL];
+      NSTextCheckingResult* valMatch = [valRegex firstMatchInString:[userInfo objectForKey:@"M"] options:0 range:NSMakeRange(0, [[userInfo objectForKey:@"M"] length])];
+      NSRange strRangeSeqId = [valMatch rangeAtIndex:1];
+      NSString* seqId;
+      NSString* message;
+      
+      if (valMatch && strRangeSeqId.location != NSNotFound) {
+        seqId = [[userInfo objectForKey:@"M"] substringWithRange:strRangeSeqId];
+        NSArray* parts = [[userInfo objectForKey:@"M"] componentsSeparatedByString:[NSString stringWithFormat:@"#%@:", seqId]];
+        message = [parts objectAtIndex:1];
+      }
+      
+      if (seqId != nil && ![seqId isEqualToString:@""]) {
+        ortcMessage = [NSString stringWithFormat:@"a[\"{\\\"ch\\\":\\\"%@\\\",\\\"m\\\":\\\"%@\\\",\\\"s\\\":\\\"%@\\\"}\"]", [userInfo objectForKey:@"C"], message, seqId];
+      }else{
+        ortcMessage = [NSString stringWithFormat:@"a[\"{\\\"ch\\\":\\\"%@\\\",\\\"m\\\":\\\"%@\\\"}\"]", [userInfo objectForKey:@"C"], [userInfo objectForKey:@"M"]];
+      }
       
       NSMutableDictionary *notificationsDict  = [[NSMutableDictionary alloc] initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:NOTIFICATIONS_KEY]];
-      NSMutableArray *notificationsArray = [[NSMutableArray alloc] initWithArray:[notificationsDict objectForKey:[userInfo objectForKey:@"A"]]];
-      [notificationsArray addObject:ortcMessage];
-      [notificationsDict setObject:notificationsArray forKey:[userInfo objectForKey:@"A"]];
+      NSMutableDictionary *notificationsArray = [[NSMutableDictionary alloc] init];
+      [notificationsArray setObject:@NO forKey:ortcMessage];
       
+      [notificationsDict setObject:notificationsArray forKey:[userInfo objectForKey:@"A"]];
       [[NSUserDefaults standardUserDefaults] setObject:notificationsDict forKey:NOTIFICATIONS_KEY];
       [[NSUserDefaults standardUserDefaults] synchronize];
       
