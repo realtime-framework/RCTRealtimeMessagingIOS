@@ -6,13 +6,12 @@
 //  Created by Rafael Cabral on 2/2/12.
 //  Copyright (c) 2012 IBT. All rights reserved.
 //
-#define NOTIFICATIONS_KEY @"Local_Storage_Notifications"
+#define NOTIFICATIONS_KEY @"Local_Storage_Notifications_dictionary"
 
 #ifndef OrtcClient_OrtcClient_h
 #define OrtcClient_OrtcClient_h
 
 #import <Foundation/Foundation.h>
-
 
 #define heartbeatDefaultTime 15 // Heartbeat default interval time
 #define heartbeatDefaultFails 3 // Heartbeat default max fails
@@ -204,7 +203,7 @@
 
 
 
-@interface OrtcClient : NSObject 
+@interface OrtcClient : NSObject
 
 ///---------------------------------------------------------------------------------------
 /// @name Properties
@@ -217,7 +216,9 @@
 @property (nonatomic, retain) NSString* sessionId;
 @property (assign) int connectionTimeout;
 @property (assign) BOOL isConnected;
-
+@property (nonatomic, retain) NSMutableDictionary* pendingPublishMessages;
+@property (assign) int publishTimeout;
+@property(strong, nonatomic)dispatch_semaphore_t sema;
 
 ///---------------------------------------------------------------------------------------
 /// @name Class Methods
@@ -243,7 +244,6 @@
  * @param authenticationToken The authentication token.
  */
 - (void)connect:(NSString*) applicationKey authenticationToken:(NSString*) authenticationToken;
-
 /**
  * Sends a message to a channel.
  *
@@ -253,6 +253,16 @@
 - (void)send:(NSString*) channel message:(NSString*) message;
 
 /**
+ * Publish a message to a channel.
+ *
+ * @param channel The channel name.
+ * @param message The message to publish.
+ * @param ttl The message expiration time in seconds (0 for maximum allowed ttl).
+ * @param callback Returns error if message publish was not successful or published message unique id (seqId) if sucessfully published
+ */
+- (void)publish:(NSString*)channel message:(NSString*)aMessage ttl:(NSNumber*)ttl callback:(void(^)(NSError* error, NSString* seqId))callback;
+
+/**
  * Subscribes to a channel to receive messages sent to it.
  *
  * @param channel The channel name.
@@ -260,6 +270,30 @@
  * @param onMessage The callback called when a message arrives at the channel.
  */
 - (void)subscribe:(NSString*) channel subscribeOnReconnected:(BOOL) aSubscribeOnReconnected onMessage:(void (^)(OrtcClient* ortc, NSString* channel, NSString* message)) onMessage;
+
+/**
+ * Subscribes to a channel to receive messages sent to it with given options.
+ *
+ * @param options The subscription options dictionary, EX: "options = {
+ * channel,
+ * subscribeOnReconnected, // optional, default = true,
+ * withNotifications (Bool), // optional, default = false, use push notifications as in subscribeWithNotifications
+ * filter, // optional, default = "", the subscription filter as in subscribeWithFilter
+ * subscriberId // optional, default = "", the subscriberId as in subscribeWithBuffer
+ * }".
+ * @param onMessageWithOptionsCallback The callback called when a message arrives at the channel, data is provided in a dictionary.
+ */
+- (void)subscribeWithOptions:(NSDictionary*)options onMessageWithOptionsCallback:(void (^)(OrtcClient* ortc, NSDictionary* msgOptions)) onMessageWithOptionsCallback;
+
+/**
+ * Subscribes to a channel to receive messages published to it.
+ *
+ * @param channel The channel name.
+ * @param subscriberId The subscriberId associated to the channel.
+ * @param onMessageWithBufferCallback The callback called when a message arrives at the channel and message seqId number.
+ */
+- (void)subscribeWithBuffer:(NSString*)channel subscriberId:(NSString*)subscriberId
+ onMessageWithBufferCallback:(void (^)(OrtcClient* ortc, NSString* channel, NSString* seqId, NSString* message))onMessageWithBufferCallback;
 
 /**
  * Subscribes to a channel, with a filter, to receive messages sent to it that validate the given filter.
@@ -351,6 +385,16 @@
 - (void)presence:(NSString*) aUrl isCLuster:(BOOL) aIsCluster applicationKey:(NSString*) aApplicationKey authenticationToken:(NSString*) aAuthenticationToken channel:(NSString*) channel callback:(void (^)(NSError* error, NSDictionary* result)) aCallback;
 
 /**
+ * Set publish messages timeout.
+ */
+- (void) setPublishTimeout:(int)timeout;
+
+/**
+ * Return publish messages timeout.
+ */
+- (int) getPublishTimeout;
+
+/**
  * Get heartbeat interval.
  */
 - (int) getHeartbeatTime;
@@ -381,6 +425,7 @@
 
 
 + (void) setDEVICE_TOKEN:(NSString *) deviceToken;
++ (void)storeNotification:(NSString*)ortcMessage withAppKey:(NSString*)key;
 @end
 
 

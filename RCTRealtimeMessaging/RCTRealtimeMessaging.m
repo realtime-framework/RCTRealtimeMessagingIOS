@@ -171,6 +171,47 @@ RCT_EXPORT_METHOD(subscribeWithFilter:(NSString*)channel subscribeOnReconnected:
      }];
 }
 
+RCT_EXPORT_METHOD(subscribeWithOptions:(NSDictionary*)options usingClient:(NSString*)clientID)
+{
+    OrtcClient *ortcClient = [_queue objectForKey:clientID];
+    [ortcClient subscribeWithOptions:options onMessageWithOptionsCallback:^(OrtcClient *ortc, NSDictionary *msgOptions) {
+        NSString *clientID = [[_queue allKeysForObject:ortc] objectAtIndex:0];
+        [self.bridge.eventDispatcher sendDeviceEventWithName:[NSString stringWithFormat:@"%@-onMessageWithOptions", clientID]
+                                                        body:msgOptions];
+    }];
+}
+
+RCT_EXPORT_METHOD(subscribeWithBuffer:(NSString*)channel subscriberId:(NSString*)subscriberId usingClient:(NSString*)clientID)
+{
+    OrtcClient *ortcClient = [_queue objectForKey:clientID];
+    [ortcClient subscribeWithBuffer:channel subscriberId:subscriberId onMessageWithBufferCallback:^(OrtcClient *ortc, NSString *channel, NSString *seqId, NSString *message) {
+        NSString *clientID = [[_queue allKeysForObject:ortc] objectAtIndex:0];
+        [self.bridge.eventDispatcher sendDeviceEventWithName:[NSString stringWithFormat:@"%@-onMessageWithBuffer", clientID]
+                                                        body:@{@"channel":channel,
+                                                               @"seqId":seqId,
+                                                               @"message":message
+                                                               }];
+    }];
+}
+
+RCT_EXPORT_METHOD(publish:(NSString*)channel message:(NSString*)aMessage ttl:(int)ttl usingClient:(NSString*)clientID callback:(RCTResponseSenderBlock)callback)
+{
+    OrtcClient *ortcClient = [_queue objectForKey:clientID];
+    [ortcClient publish:channel message:aMessage ttl:[NSNumber numberWithInt:ttl] callback:^(NSError *error, NSString *seqId) {
+        
+        NSString* pError = @"";
+        if (error) {
+            pError = error.localizedDescription;
+        }
+        
+        if (!seqId) {
+            seqId = [[NSString alloc] init];
+        }
+        
+        callback(@[pError, seqId]);
+    }];
+}
+
 RCT_EXPORT_METHOD(subscribeWithNotifications:(NSString*) channel subscribeOnReconnected:(BOOL) aSubscribeOnReconnected usingClient:(NSString*)clientID)
 {
     OrtcClient *ortcClient = [_queue objectForKey:clientID];
