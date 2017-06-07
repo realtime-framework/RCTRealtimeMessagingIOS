@@ -49,6 +49,10 @@ class RCTRealtimeMessagingIOS extends React.Component {
 		ortcClient.unsubscribe(channel, this.id);
 	}
 
+	RTPublishMessage(channel, message, ttl, callBack){
+		ortcClient.publish(channel, message, ttl, this.id, callBack);
+	}
+
 	RTSendMessage(message, channel){
 		ortcClient.sendMessage(message, channel, this.id);
 	}
